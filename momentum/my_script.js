@@ -16,9 +16,12 @@ class Time_class {
 
         this.name.addEventListener ('keypress', this.set_name);
         this.name.addEventListener ('blur', this.set_name);
+        this.name.addEventListener ('focus', this.save_changes);
+
 
         this.focus.addEventListener ('keypress', this.set_focus);
         this.focus.addEventListener ('blur', this.set_focus);
+        this.focus.addEventListener ('focus', this.save_changes);
 
     }
 
@@ -98,14 +101,17 @@ class Time_class {
     get_name () {
         if (localStorage.getItem ('name') === null) {
             this.name.textContent = 'Enter your name';
+            localStorage.setItem ('name', 'Enter your name');
         } else {
             this.name.textContent = localStorage.getItem ('name');
+            
         }
     }
 
     get_focus () {
         if (localStorage.getItem ('focus') === null) {
             this.focus.textContent = 'Enter your focus';
+            localStorage.setItem ('focus', 'Enter your focus');
         } else {
             this.focus.textContent = localStorage.getItem ('focus');
         }
@@ -114,25 +120,40 @@ class Time_class {
     set_name (e) {
         if (e.type === 'keypress') {
             if (e.which === 13 || e.keyCode === 13) {
-                localStorage.setItem ('name', e.target.innerText);
+                if ( e.target.textContent === '' || (/^\s+$/.test(e.target.textContent))) {
+                    e.target.textContent = localStorage.getItem ('name')
+                }
                 e.target.blur ();
             }
         } else {
-            localStorage.setItem ('name', e.target.innerText);
+            if ( e.target.textContent === '' || (/^\s+$/.test(e.target.textContent))) {
+                e.target.textContent = localStorage.getItem ('name');
+            } else {
+                localStorage.setItem ('name', e.target.innerText);
+            }
         }
     }
 
     set_focus (e) {
         if (e.type === 'keypress') {
             if (e.which === 13 || e.keyCode === 13) {
-                localStorage.setItem ('focus', e.target.innerText);
+                if ( e.target.textContent === '' || (/^\s+$/.test(e.target.textContent))) {
+                    e.target.textContent = localStorage.getItem ('focus')
+                }
                 e.target.blur ();
             }
         } else {
-            localStorage.setItem ('focus', e.target.innerText);
+            if ( e.target.textContent === '' || (/^\s+$/.test(e.target.textContent))) {
+                e.target.textContent = localStorage.getItem ('focus');
+            } else {
+                localStorage.setItem ('focus', e.target.innerText);
+            }
         }
     }
 
+    save_changes (e) {
+        e.target.innerText = '';
+    }
     
 }
 
