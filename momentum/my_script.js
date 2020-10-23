@@ -28,15 +28,20 @@ class Time_class {
         hours = today_time.getHours (),
         min = today_time.getMinutes (),
         sec = today_time.getSeconds ();
-        min = today_time.getMinutes (),
-        sec = today_time.getSeconds ();
+
+
+        let options = {weekday: 'long', day: 'numeric', month: 'long',},
+        week_day_date_moth = today_time.toLocaleString ("en-US", options);
+        
 
         //AM/PM
-        let day_time = hours >= 12 ? 'PM' : 'AM';
+        //let day_time = hours >= 12 ? 'PM' : 'AM';
 
-        hours = hours % 12 || 12;
+        //hours = hours % 12 || 12;
 
-        this.time.innerHTML = `${this.add_zero_to_time (hours)} : ${this.add_zero_to_time (min)} : ${this.add_zero_to_time (sec)} ${day_time}`;
+        //this.time.innerHTML = `${this.add_zero_to_time (hours)} : ${this.add_zero_to_time (min)} : ${this.add_zero_to_time (sec)} ${day_time} ${week_day_date_moth}`;
+
+        this.time.innerHTML = `${this.add_zero_to_time (hours)} : ${this.add_zero_to_time (min)} : ${this.add_zero_to_time (sec)} ${week_day_date_moth}`;
 
         setTimeout (() => this.show_time (), 1000);
     }
